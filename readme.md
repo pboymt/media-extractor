@@ -1,86 +1,18 @@
-# This is a project help you build userscript with webpack
+# Vue 3 + TypeScript + Vite
 
-Just [use this git repo as a template](https://github.com/Trim21/webpack-userscript-template/generate).
+This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
 
-[中文说明](./readme.cn.md)
+## Recommended IDE Setup
 
-## dev
+- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
 
-1. Allow Tampermonkey's access to local file URIs [tampermonkey/faq](https://tampermonkey.net/faq.php?ext=dhdg#Q204)
-2. install deps with `npm i` or `npm ci`.
-3. `npm run dev` to start your development.
+## Type Support For `.vue` Imports in TS
 
-Now you will see 2 files in `./dist/`
+TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
 
--   `dist/index.dev.user.js`: **You should install this userscript in your browser.** It's a simple loader that load `dist/index.debug.js` on matched web page.
--   `dist/index.debug.js`: This is the development build with `eval-source-map`. It will be automatically loaded by `dist/index.dev.user.js` via `@require file://.../dist/index.debug.js` metadata, **Don't add it to your userscript manager.**
+If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
 
-4. edit [src/index.ts](./src/index.ts), you can even import css or less files. You can use scss if you like.
-5. go wo <https://www.example.com/> and open console, you'll see it's working.
-
-livereload is default enabled, use [this Chrome extension](https://chrome.google.com/webstore/detail/jnihajbhpnppcggbcgedagnkighmdlei)
-
-### NOTICE
-
-Everytime you change your metadata config,
-you'll have to restart webpack server and install newly generated `dist/index.dev.user.js` UserScript in your browser again.
-
-## used package
-
-If you prefer some other bundler like rollup, you can use some of these packages directly.
-
-[userscript-metadata-generator](https://github.com/trim21/userscript-metadata-generator)
-
-[gm-fetch](https://github.com/trim21/gm-fetch)
-
-[userscript-metadata-webpack-plugin](https://github.com/trim21/userscript-metadata-webpack-plugin)
-
-## Cross Site Request
-
-you can call `GM.xmlHttpRequest` directly or use a fetch API based on `GM.xmlHttpRequest` <https://github.com/Trim21/gm-fetch>
-
-## TypeScript
-
-use typescript as normal, see [example](src/index.ts)
-
-## dependencies
-
-There are two ways to using a package on npm.
-
-### UserScript way
-
-like original UserScript way, you will need to add them to your [user script metadata's require section](./config/metadata.cjs#L16-L18) , and exclude them in [config/webpack.config.base.cjs](./config/webpack.config.base.cjs#L18-L20)
-
-### Webpack way
-
-just install packages with npm and import them in your code, webpack will take care them.
-
-## Build
-
-```bash
-npm run build
-```
-
-`dist/index.prod.user.js` is the final script. you can manually copy it to greasyfork for deploy.
-
-### Minify
-
-There is a [limitation in greasyfork](https://greasyfork.org/en/help/code-rules), your code must not be obfuscated or minified.
-
-If you don't need to deploy your script to greasyfork, enable minify as you like.
-
-## automatically Deploy
-
-[github actions](./.github/workflows/deploy.yaml#L36) will deploy production userscript to gh-pages branch.
-
-[example](https://github.com/Trim21/webpack-userscript-template/tree/gh-pages)
-
-[deployed](https://trim21.github.io/webpack-userscript-template/)
-
-You can auto use greasyfork's auto update function.
-
-## Q&A
-
-you may find enabling source map not working well in production code, because Tampermonkey will add extra lines (all your `@require`) before your script. I don't know if there is a good fix for this, You need to use webpack config `devtool` with `eval` prefix to make it work as expected, so source map is disabled in this production build.
-
-<https://webpack.js.org/configuration/devtool/#development>
+1. Disable the built-in TypeScript Extension
+   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
+   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
+2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
