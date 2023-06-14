@@ -11,7 +11,8 @@ export default defineConfig({
       userscript: {
         icon: 'https://vitejs.dev/logo.svg',
         namespace: 'npm/vite-plugin-monkey',
-        match: ['https://weibo.com/*'],
+        match: ['https://*.weibo.com/*'],
+        author: 'pboymt'
       },
       build: {
         externalGlobals: {
@@ -20,4 +21,9 @@ export default defineConfig({
       },
     }),
   ],
+  resolve: {
+    alias: {
+      '@': '/src'
+    }
+  }
 });

@@ -4,17 +4,18 @@ import extractionLogo from './assets/extraction.svg';
 import closeLogo from './assets/close.svg';
 import Window from './components/Window.vue';
 import { inject } from 'vue';
-import { Weibo } from './plugins/weibo';
+import { WeiboPlugin } from './plugins/weibo';
 
 const opened = ref(true);
 const url = ref('');
-const weibo = inject<Weibo>('weibo');
+const weibo = inject<WeiboPlugin>('weibo');
 
 function toggle() {
   opened.value = !opened.value;
 }
 
 onMounted(() => {
+
 });
 </script>
 
@@ -22,7 +23,7 @@ onMounted(() => {
   <div class="plugin-button" @click="toggle">
     <img :src="opened ? closeLogo : extractionLogo" class="logo" :class="{ opened: opened }">
   </div>
-  <Window :opened="opened" :url="weibo?.pageType.value"></Window>
+  <Window :opened="opened"></Window>
 </template>
 
 <style lang="scss">
@@ -40,11 +41,21 @@ onMounted(() => {
   justify-content: center;
   align-items: center;
 
+  // z-index: 9999999;
   cursor: pointer;
+  user-select: none;
 
   img {
     width: 1.5rem;
-    filter: invert(1);
+
+    @media (prefers-color-scheme: dark) {
+      filter: invert(1);
+    }
+
+    html[data-theme=dark] & {
+      filter: invert(1);
+    }
+
     opacity: 0.5;
     transition: transform 0.2s ease-in-out;
 

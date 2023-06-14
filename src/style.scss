@@ -16,6 +16,19 @@
 
   --border-color: rgb(71, 71, 71);
   --background-color: rgb(25, 25, 25);
+  --foreground-color: rgb(255, 255, 255);
+
+}
+
+html[data-theme=dark] {
+  --border-color: rgb(71, 71, 71);
+  --background-color: rgb(25, 25, 25);
+  --foreground-color: rgb(255, 255, 255);
+}
+
+html[data-theme=light] {
+  --border-color: rgb(235, 235, 235);
+  --background-color: rgb(255, 255, 255);
 }
 
 a {
@@ -83,12 +96,15 @@ button:focus-visible {
   justify-content: center;
   height: 0;
   width: 0;
+  z-index: 9999;
 }
 
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
+    --border-color: rgb(235, 235, 235);
+    --background-color: rgb(255, 255, 255);
   }
 
   a:hover {

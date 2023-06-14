@@ -1,0 +1,1 @@
+import { GM } from '$';
